@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="max-age=0">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="cache-control" content="no-store">
+    <meta http-equiv="pragma" content="no-cache" />
+
+    <title>Encode SHA</title>
+
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+
+    <style type="text/css">
+        .shares_input {
+            text-align:center;
+        }
+
+        .firstC {
+            width:75px;
+        }
+
+        th, td {
+            border: 1px solid black;
+        }
+
+        th {
+            text-align:center;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<h2>Input:</h2>
+<input type="text" autocomplete="off" class="encode_sha_param" id="encode_sha_form" style="width:80%">
+<br>
+
+<br>
+<input type="button" value="Submit" id="valid_button">
+
+<br><br><hr><br>
+
+<h2>SHA-512 X 10:</h2>
+<div id="sha_result" style="font-weight:bold;color:blue;background-color:yellow;width:85%;word-break:break-all;margin:auto;">??????</div>
+
+
+<script type="text/javascript">
+
+    async function digestMessage(message) {
+      var msgUint8 = new TextEncoder().encode(message);                           // encode as (utf-8) Uint8Array
+      var hashBuffer = await crypto.subtle.digest('SHA-512', msgUint8);           // hash the message
+      var hashArray = Array.from(new Uint8Array(hashBuffer));                     // convert buffer to byte array
+      var hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
+
+      return hashHex;
+    }
+
+    $("#valid_button").on("click",(async function(){
+
+        var digestHex = await digestMessage($("#encode_sha_form").val());
+
+        for (let i = 0; i < 9; i++) {
+          digestHex = await digestMessage(digestHex);
+        }
+
+        $("#sha_result").html(digestHex.toUpperCase());
+    }));
+</script>
+
+</body>
+</html>
