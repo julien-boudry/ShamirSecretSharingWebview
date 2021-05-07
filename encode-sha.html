@@ -42,7 +42,7 @@
 
 <br><br><hr><br>
 
-<h2>SHA-512 X 10:</h2>
+<h2>SHA-512:</h2>
 <div id="sha_result" style="font-weight:bold;color:blue;background-color:yellow;width:85%;word-break:break-all;margin:auto;">??????</div>
 
 
@@ -59,9 +59,11 @@
 
     $("#valid_button").on("click",(async function(){
 
-        var digestHex = await digestMessage($("#encode_sha_form").val());
+        var digestHex = $("#encode_sha_form").val();
+        
+        var iteration = 1;
 
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < iteration; i++) {
           digestHex = await digestMessage(digestHex);
         }
 
