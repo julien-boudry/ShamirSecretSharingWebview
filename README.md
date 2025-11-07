@@ -1,5 +1,5 @@
 # Online Version
-* https://github.com/julien-boudry/ShamirSecretSharingWebview
+* https://julien-boudry.github.io/ShamirSecretSharingWebview
 
 # Implement:
 * secret.js | https://github.com/grempe/secrets.js
